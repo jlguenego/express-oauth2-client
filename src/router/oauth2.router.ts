@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import '../modules';
 import {OAuth2Factory} from '../OAuth2Factory';
+import {getOrigin} from './../misc';
 import {OAuth2Client} from './../OAuth2Client';
 
 const app = Router();
@@ -22,7 +23,7 @@ export const oAuth2Router = (client: OAuth2Client) => {
         const oauth2 = OAuth2Factory.get(p, options);
         const accessToken = await oauth2.getAccessToken(
           requestToken,
-          req.baseUrl
+          getOrigin(req)
         );
 
         const user = await oauth2.getUserInfo(accessToken);
