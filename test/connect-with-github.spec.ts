@@ -1,6 +1,6 @@
 import express from 'express';
 import session from 'express-session';
-import {oauth2Client} from './../src/index';
+import {oauth2Client} from '../src';
 
 const app = express();
 app.set('view engine', 'ejs');
