@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response, Router} from 'express';
-import {OAuth2Options} from './interfaces/OAuth2';
+import {OAuth2Config, OAuth2Options} from './interfaces/OAuth2';
 import {User} from './interfaces/User';
 import {getOrigin} from './misc';
 import {OAuth2Factory} from './OAuth2Factory';
@@ -8,7 +8,7 @@ import {authRouter} from './router/auth.router';
 import {oAuth2Router} from './router/oauth2.router';
 
 export class OAuth2Client {
-  constructor(private options: OAuth2Options) {}
+  constructor(public options: OAuth2Options) {}
 
   auth() {
     return (req: Request, res: Response, next: NextFunction) => {
@@ -33,6 +33,18 @@ export class OAuth2Client {
     return oauth2.getAuthorizeUrl(origin);
   }
 
+  getConfig(req: Request): OAuth2Config {
+    const origin = getOrigin(req);
+    const config: OAuth2Config = {};
+    for (const p of Object.keys(options)) {
+      const oauth2 = OAuth2Factory.get(p, options);
+      config[p] = {
+        authorizationUrl: oauth2.getAuthorizeUrl(origin),
+      };
+    }
+    return config;
+  }
+
   getUser(req: Request): User | undefined {
     return req.session.user;
   }
@@ -40,7 +52,7 @@ export class OAuth2Client {
   router() {
     const app = Router();
     app.use('/auth', authRouter);
-    app.use('/oauth2', oAuth2Router(options));
+    app.use('/oauth2', oAuth2Router(this));
     return app;
   }
 }
