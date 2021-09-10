@@ -16,7 +16,7 @@ export class GithubOAuth2 extends OAuth2 {
   getAuthorizeUrl(origin: string): string {
     return (
       this.options.authorizationUrl +
-      `?client_id=${this.options.clientID}&redirect_uri=${origin}/api/oauth2/redirect/`
+      `?client_id=${this.options.clientID}&redirect_uri=${origin}/api/oauth2/redirect/GITHUB`
     );
   }
 
