@@ -17,11 +17,12 @@ app.use(
   })
 );
 
-app.use(oauth2Client.router());
+app.use('/api', oauth2Client.router());
 
 app.get('/', (req, res) => {
+  const origin = req.protocol + '://' + req.headers.host;
   res.render('pages/index', {
-    authorizeUrl: oauth2Client.getAuthorizeUrl('GITHUB'),
+    authorizeUrl: oauth2Client.getAuthorizeUrl('GITHUB', origin),
   });
 });
 

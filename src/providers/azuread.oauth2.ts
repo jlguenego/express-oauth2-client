@@ -1,22 +1,16 @@
 import got from 'got';
-import {OAuth2ProviderOptions} from '../interfaces/OAuth2';
 import {User} from '../interfaces/User';
 import {OAuth2} from '../OAuth2';
 
-const domain = process.env.DOMAIN_URL || 'http://localhost:4200';
-
 export class AzureADOAuth2 extends OAuth2 {
-  async getAccessToken(
-    requestToken: string,
-    options: OAuth2ProviderOptions
-  ): Promise<string> {
-    const url = `${options.accessTokenUrl}`;
+  async getAccessToken(requestToken: string, origin: string): Promise<string> {
+    const url = `${this.options.accessTokenUrl}`;
     const body: {[key: string]: string} = {
       grant_type: 'authorization_code',
-      client_id: options.clientID,
-      client_secret: options.clientSecret,
+      client_id: this.options.clientID,
+      client_secret: this.options.clientSecret,
       code: '' + requestToken,
-      redirect_uri: domain + '/api/oauth2/redirect/AZUREAD',
+      redirect_uri: origin + '/api/oauth2/redirect/AZUREAD',
     };
     const data: {access_token: string} = await got(url, {
       method: 'POST',
@@ -25,6 +19,14 @@ export class AzureADOAuth2 extends OAuth2 {
     }).json();
     console.log('data: ', data);
     return data.access_token;
+  }
+
+  getAuthorizeUrl(origin: string): string {
+    return (
+      this.options.authorizationUrl +
+      `?client_id=${this.options.clientID}&redirect_uri=${origin}/api/oauth2/redirect/` +
+      '&scope=User.Read&response_type=code'
+    );
   }
 
   async getUserInfo(accessToken: string): Promise<User> {

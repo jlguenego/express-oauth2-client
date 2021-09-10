@@ -1,41 +1,20 @@
 import {Router} from 'express';
-import {Oauth2Config, OAuth2Options} from '../interfaces/OAuth2';
 import '../modules';
 import {OAuth2Factory} from '../OAuth2Factory';
+import {OAuth2Config, OAuth2Options} from './../interfaces/OAuth2';
 
 const app = Router();
 
-const getOAuth2Options = (): OAuth2Options => {
-  const providerList = process.env.OAUTH2_PROVIDER_LIST;
-  if (!providerList) {
-    return {};
-  }
-  const providers = providerList.split(',');
-  const options: OAuth2Options = {};
-  for (const p of providers) {
-    options[p] = {
-      clientID: process.env[`OAUTH2_${p}_CLIENT_ID`] || 'TBD',
-      clientSecret: process.env[`OAUTH2_${p}_CLIENT_SECRET`] || 'TBD',
-      authorizationUrl: process.env[`OAUTH2_${p}_AUTHORIZATION_URL`] || 'TBD',
-      accessTokenUrl: process.env[`OAUTH2_${p}_ACCESS_TOKEN_URL`] || 'TBD',
-    };
-  }
-  return options;
-};
-
-const options = getOAuth2Options();
-
-export const oAuth2Router = () => {
-  const config: Oauth2Config = {};
-  for (const p of Object.keys(options)) {
-    config[p] = {
-      authorizationUrl: options[p].authorizationUrl,
-      clientId: options[p].clientID,
-      redirectUri: `/api/oauth2/redirect/${p}`,
-    };
-  }
-
+export const oAuth2Router = (options: OAuth2Options) => {
   app.get('/config', (req, res) => {
+    const origin = req.protocol + '://' + req.headers.host;
+    const config: OAuth2Config = {};
+    for (const p of Object.keys(options)) {
+      const oauth2 = OAuth2Factory.get(p, options);
+      config[p] = {
+        authorizationUrl: oauth2.getAuthorizeUrl(origin),
+      };
+    }
     res.json(config);
   });
 
@@ -47,10 +26,10 @@ export const oAuth2Router = () => {
         if (!requestToken) {
           throw new Error('The requestToken is not defined.');
         }
-        const oauth2 = OAuth2Factory.get(p);
+        const oauth2 = OAuth2Factory.get(p, options);
         const accessToken = await oauth2.getAccessToken(
           requestToken,
-          options[p]
+          req.baseUrl
         );
 
         const user = await oauth2.getUserInfo(accessToken);

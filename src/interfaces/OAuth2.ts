@@ -9,10 +9,8 @@ export interface OAuth2ProviderOptions {
   accessTokenUrl: string;
 }
 
-export interface Oauth2Config {
+export interface OAuth2Config {
   [provider: string]: {
     authorizationUrl: string;
-    clientId: string;
-    redirectUri: string;
   };
 }
