@@ -1,10 +1,4 @@
-import {NextFunction, Request, Response} from 'express';
+import './modules';
+import {OAuth2Client} from './OAuth2Client';
 
-export const oauth2Client = () => {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    // comment
-    console.log('oauth2Client', next);
-    throw new Error('oups');
-    // next();
-  };
-};
+export const oauth2Client = new OAuth2Client();
