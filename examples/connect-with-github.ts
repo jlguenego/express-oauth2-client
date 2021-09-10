@@ -21,8 +21,10 @@ app.use('/api', oauth2Client.router());
 
 app.get('/', (req, res) => {
   const user = oauth2Client.getUser(req);
+  const config = oauth2Client.getConfig(req);
+  console.log('config: ', config);
   res.render('pages/index', {
-    authorizeUrl: oauth2Client.getAuthorizeUrl('GITHUB', req),
+    config,
     isConnected: user !== undefined,
     displayName: user?.displayName,
   });

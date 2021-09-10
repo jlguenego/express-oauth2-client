@@ -11,8 +11,10 @@
     <% if (isConnected) { %>
     <h2>Welcome <%= displayName %></h2>
     <a href="/secret">You are connected. See the secret</a>
-    <% } else { %>
-    <a href="<%= authorizeUrl %>">Connect with Github</a>
-    <% } %>
+    <% } else { Object.keys(config).forEach(p => { %>
+    <a href="<%= config[p].authorizationUrl %>">Connect with <%= p %></a>
+    <br />
+    <br />
+    <% }); } %>
   </body>
 </html>
