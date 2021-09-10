@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import {getOrigin} from '../misc';
 import '../modules';
 import {OAuth2Factory} from '../OAuth2Factory';
 import {OAuth2Config, OAuth2Options} from './../interfaces/OAuth2';
@@ -7,7 +8,7 @@ const app = Router();
 
 export const oAuth2Router = (options: OAuth2Options) => {
   app.get('/config', (req, res) => {
-    const origin = req.protocol + '://' + req.headers.host;
+    const origin = getOrigin(req);
     const config: OAuth2Config = {};
     for (const p of Object.keys(options)) {
       const oauth2 = OAuth2Factory.get(p, options);

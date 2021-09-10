@@ -20,14 +20,20 @@ app.use(
 app.use('/api', oauth2Client.router());
 
 app.get('/', (req, res) => {
-  const origin = req.protocol + '://' + req.headers.host;
   res.render('pages/index', {
-    authorizeUrl: oauth2Client.getAuthorizeUrl('GITHUB', origin),
+    authorizeUrl: oauth2Client.getAuthorizeUrl('GITHUB', req),
+    isConnected: oauth2Client.getUser(req) !== undefined,
   });
 });
 
 app.get('/secret', oauth2Client.auth(), (req, res) => {
+  console.log('giving secret');
   res.render('pages/secret');
+});
+
+app.get('/disconnect', oauth2Client.auth(), (req, res) => {
+  oauth2Client.disconnect(req);
+  res.render('pages/disconnect');
 });
 
 app.listen(3000, () => {
