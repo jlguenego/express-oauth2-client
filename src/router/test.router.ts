@@ -20,6 +20,7 @@ export const testRouter = (oauth2Client: OAuth2Client) => {
   app.get('/', (req, res) => {
     const user = oauth2Client.getUser(req);
     const config = oauth2Client.getConfig(req);
+    req.session.afterLoginRoute = '/api/oauth2/test/';
     res.render('pages/index', {
       config,
       isConnected: user !== undefined,
@@ -32,7 +33,7 @@ export const testRouter = (oauth2Client: OAuth2Client) => {
     res.render('pages/secret');
   });
 
-  app.get('/disconnect', oauth2Client.auth(), (req, res) => {
+  app.get('/disconnect', (req, res) => {
     oauth2Client.disconnect(req);
     res.render('pages/disconnect');
   });

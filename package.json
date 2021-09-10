@@ -4,7 +4,7 @@
   "description": "Middleware for OAuth2 connection.",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon -r dotenv/config examples/connect-with-github.ts",
+    "start": "npx nodemon -r dotenv/config examples/server.ts",
     "test": "nyc mocha",
     "lint": "gts lint",
     "clean": "gts clean",
