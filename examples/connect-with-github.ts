@@ -1,12 +1,8 @@
 import express from 'express';
 import session from 'express-session';
-import {resolve} from 'path';
 import {oauth2Client} from '../src';
 
 const app = express();
-
-app.set('view engine', 'ejs');
-app.set('views', resolve(__dirname, 'views'));
 
 app.use(
   session({
@@ -17,28 +13,7 @@ app.use(
   })
 );
 
-app.use('/api', oauth2Client.router());
-
-app.get('/', (req, res) => {
-  const user = oauth2Client.getUser(req);
-  const config = oauth2Client.getConfig(req);
-  console.log('config: ', config);
-  res.render('pages/index', {
-    config,
-    isConnected: user !== undefined,
-    displayName: user?.displayName,
-  });
-});
-
-app.get('/secret', oauth2Client.auth(), (req, res) => {
-  console.log('giving secret');
-  res.render('pages/secret');
-});
-
-app.get('/disconnect', oauth2Client.auth(), (req, res) => {
-  oauth2Client.disconnect(req);
-  res.render('pages/disconnect');
-});
+app.use('/api', oauth2Client.router({exposeTest: true}));
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');

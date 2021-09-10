@@ -1,5 +1,9 @@
 import {NextFunction, Request, Response, Router} from 'express';
-import {OAuth2Config, OAuth2Options} from './interfaces/OAuth2';
+import {
+  OAuth2Config,
+  OAuth2Options,
+  OAuth2RouterOptions,
+} from './interfaces/OAuth2';
 import {User} from './interfaces/User';
 import {getOrigin} from './misc';
 import {OAuth2Factory} from './OAuth2Factory';
@@ -49,10 +53,10 @@ export class OAuth2Client {
     return req.session.user;
   }
 
-  router() {
+  router(options: OAuth2RouterOptions) {
     const app = Router();
     app.use('/auth', authRouter);
-    app.use('/oauth2', oAuth2Router(this));
+    app.use('/oauth2', oAuth2Router(this, options));
     return app;
   }
 }

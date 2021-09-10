@@ -1,12 +1,26 @@
 import {Router} from 'express';
 import '../modules';
 import {OAuth2Factory} from '../OAuth2Factory';
+import {OAuth2RouterOptions} from './../interfaces/OAuth2';
 import {getOrigin} from './../misc';
 import {OAuth2Client} from './../OAuth2Client';
+import {testRouter} from './test.router';
 
 const app = Router();
 
-export const oAuth2Router = (client: OAuth2Client) => {
+export const oAuth2Router = (
+  client: OAuth2Client,
+  routerOptions: Partial<OAuth2RouterOptions>
+) => {
+  const routerOpts: OAuth2RouterOptions = {
+    exposeTest: false,
+    ...routerOptions,
+  };
+
+  if (routerOpts.exposeTest) {
+    app.use('/test', testRouter(client));
+  }
+
   const options = client.options;
   app.get('/config', (req, res) => {
     res.json(client.getConfig(req));

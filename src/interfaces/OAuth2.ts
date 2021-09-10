@@ -14,3 +14,7 @@ export interface OAuth2Config {
     authorizationUrl: string;
   };
 }
+
+export interface OAuth2RouterOptions {
+  exposeTest: boolean;
+}
