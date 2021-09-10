@@ -4,7 +4,6 @@ import {OAuth2} from '../OAuth2';
 
 export class AzureADOAuth2 extends OAuth2 {
   async getAccessToken(requestToken: string, origin: string): Promise<string> {
-    console.log('origin: ', origin);
     const url = `${this.options.accessTokenUrl}`;
     const body: {[key: string]: string} = {
       grant_type: 'authorization_code',
