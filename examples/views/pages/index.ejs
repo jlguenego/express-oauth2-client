@@ -9,6 +9,7 @@
   <body>
     <h1>Test OAuth with Github</h1>
     <% if (isConnected) { %>
+    <h2>Welcome <%= displayName %></h2>
     <a href="/secret">You are connected. See the secret</a>
     <% } else { %>
     <a href="<%= authorizeUrl %>">Connect with Github</a>

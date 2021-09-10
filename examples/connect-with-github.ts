@@ -20,9 +20,11 @@ app.use(
 app.use('/api', oauth2Client.router());
 
 app.get('/', (req, res) => {
+  const user = oauth2Client.getUser(req);
   res.render('pages/index', {
     authorizeUrl: oauth2Client.getAuthorizeUrl('GITHUB', req),
-    isConnected: oauth2Client.getUser(req) !== undefined,
+    isConnected: user !== undefined,
+    displayName: user?.displayName,
   });
 });
 
