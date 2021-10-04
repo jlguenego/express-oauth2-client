@@ -15,6 +15,10 @@ app.use(
 
 app.use('/api', oauth2Client.router({exposeTest: true}));
 
+app.use('/hello', oauth2Client.auth(), (req, res) => {
+  res.send('Hello world');
+});
+
 app.get('/', (req, res) => {
   res.redirect('/api/oauth2/test/');
 });
