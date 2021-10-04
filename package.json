@@ -1,6 +1,6 @@
 {
   "name": "@jlguenego/express-oauth2-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Express Middleware for OAuth2 connection.",
   "main": "build/src/index.js",
   "scripts": {
