@@ -10,7 +10,7 @@ const app = Router();
 
 export const oAuth2Router = (
   client: OAuth2Client,
-  routerOptions: Partial<OAuth2RouterOptions>
+  routerOptions: Partial<OAuth2RouterOptions> = {}
 ) => {
   const routerOpts: OAuth2RouterOptions = {
     exposeTest: false,

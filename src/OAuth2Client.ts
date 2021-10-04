@@ -46,7 +46,7 @@ export class OAuth2Client {
     return req.session.user;
   }
 
-  router(options: OAuth2RouterOptions) {
+  router(options: Partial<OAuth2RouterOptions> = {}) {
     const app = Router();
     app.use('/auth', authRouter);
     app.use('/oauth2', oAuth2Router(this, options));
