@@ -30,12 +30,6 @@ export class OAuth2Client {
     req.session.accessToken = undefined;
   }
 
-  getAuthorizeUrl(provider: string, req: Request) {
-    const origin = getOrigin(req);
-    const oauth2 = OAuth2Factory.get(provider, options);
-    return oauth2.getAuthorizeUrl(origin);
-  }
-
   getConfig(req: Request): OAuth2Config {
     const origin = getOrigin(req);
     const config: OAuth2Config = {};
