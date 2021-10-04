@@ -7,7 +7,7 @@ const app = express();
 app.use(
   session({
     name: 'test-app.sid',
-    secret: 'do not change this secret or all session will be reset...',
+    secret: '$keep this secret$',
     resave: false,
     saveUninitialized: true,
   })
