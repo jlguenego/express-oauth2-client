@@ -1,7 +1,7 @@
 {
-  "name": "express-oauth2-client",
-  "version": "0.0.2",
-  "description": "Middleware for OAuth2 connection.",
+  "name": "@jlguenego/express-oauth2-client",
+  "version": "0.0.1",
+  "description": "Express Middleware for OAuth2 connection.",
   "main": "build/src/index.js",
   "scripts": {
     "start": "npx nodemon -r dotenv/config examples/server.ts",
