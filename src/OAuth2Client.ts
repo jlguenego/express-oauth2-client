@@ -17,7 +17,6 @@ export class OAuth2Client {
   auth() {
     return (req: Request, res: Response, next: NextFunction) => {
       if (!req.session.user) {
-        console.log('not connected.');
         return res.status(401).end();
       }
       const user = req.session.user;

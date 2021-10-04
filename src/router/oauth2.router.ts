@@ -44,7 +44,7 @@ export const oAuth2Router = (
         req.session.user = user;
         res.redirect(req.session.afterLoginRoute || '/');
       } catch (error) {
-        console.log('error: ', error);
+        console.error('error: ', error);
         res.status(500).end();
       }
     })();

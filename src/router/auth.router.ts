@@ -7,7 +7,6 @@ export const authRouter = app;
 
 app.get('/isConnected', (req, res) => {
   if (!req.session.user) {
-    console.log('not connected.');
     return res.status(401).end();
   }
   return res.json(req.session.user);

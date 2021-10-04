@@ -7,9 +7,7 @@ export class GithubOAuth2 extends OAuth2 {
     const url =
       this.options.accessTokenUrl +
       `?client_id=${this.options.clientID}&code=${requestToken}&client_secret=${this.options.clientSecret}`;
-    console.log('url: ', url);
     const data = (await got.post(url).json()) as {access_token: string};
-    console.log('data: ', data);
     return data.access_token;
   }
 
@@ -37,7 +35,6 @@ export class GithubOAuth2 extends OAuth2 {
       id: data.login,
       identityProvider: 'github',
     };
-    console.log('user: ', user);
     return user;
   }
 }

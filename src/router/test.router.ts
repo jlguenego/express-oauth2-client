@@ -29,7 +29,6 @@ export const testRouter = (oauth2Client: OAuth2Client) => {
   });
 
   app.get('/secret', oauth2Client.auth(), (req, res) => {
-    console.log('giving secret');
     res.render('pages/secret');
   });
 

@@ -17,7 +17,6 @@ export class AzureADOAuth2 extends OAuth2 {
       form: body,
       // throwHttpErrors: false,
     }).json();
-    console.log('data: ', data);
     return data.access_token;
   }
 
@@ -42,14 +41,12 @@ export class AzureADOAuth2 extends OAuth2 {
         userPrincipalName: string;
         surname: string;
       }>();
-    console.log('azure ad data: ', data);
     const user = {
       displayName: data.displayName,
       email: data.userPrincipalName,
       id: data.surname,
       identityProvider: 'azure AD',
     };
-    console.log('user: ', user);
     return user;
   }
 }
