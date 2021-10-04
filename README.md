@@ -56,9 +56,47 @@ This module currently works with:
 
 ### Prerequisites
 
-1. you need to use the `express` server.
-2. you also need to use the `express-session` module because all users will be identified with session cookies.
-3.
+1. `express` node module.
+2. `express-session` node module because all users will be identified with session cookies.
+3. configuring the client application within your providers (Github, Azure AD, etc.). You need to have information with:
+   1. Application id
+   2. Secret key
+   3. authorization url
+   4. access token url
+
+### Environment variables
+
+the `<provider>` name should be in uppercase.
+
+Example:
+
+```
+# Comma separated list of providers (uppercase)
+OAUTH2_PROVIDER_LIST=GITHUB,AZUREAD
+
+# example for GITHUB
+OAUTH2_GITHUB_CLIENT_ID=<your client id>
+OAUTH2_GITHUB_CLIENT_SECRET=<your secret id>
+OAUTH2_GITHUB_AUTHORIZATION_URL=https://github.com/login/oauth/authorize
+OAUTH2_GITHUB_ACCESS_TOKEN_URL=https://github.com/login/oauth/access_token
+
+# example for AZUREAD
+OAUTH2_AZUREAD_CLIENT_ID=<your client id>
+OAUTH2_AZUREAD_CLIENT_SECRET=<your secret id>
+OAUTH2_AZUREAD_AUTHORIZATION_URL=https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+OAUTH2_AZUREAD_ACCESS_TOKEN_URL=https://login.microsoftonline.com/common/oauth2/v2.0/token
+```
+
+To add a provider, add:
+
+```
+OAUTH2_PROVIDER_LIST=GITHUB,AZUREAD,<provider>
+
+OAUTH2_<provider>_CLIENT_ID=<your client id>
+OAUTH2_<provider>_CLIENT_SECRET=<your secret id>
+OAUTH2_<provider>_AUTHORIZATION_URL=https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+OAUTH2_<provider>_ACCESS_TOKEN_URL=https://login.microsoftonline.com/common/oauth2/v2.0/token
+```
 
 ### the oauth2Client object
 
