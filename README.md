@@ -3,18 +3,22 @@
 ## Install
 
 ```
-npm i express-oauth2-client express express-session
+mdkir test-oauth2
+cd test-oauth2
+npm init -y
+npm i express-oauth2-client express express-session dotenv ejs
 ```
 
-To see the demo (`{exposeTest: true}`) please install also ejs:
-
-```
-npm i ejs
-```
+- `ejs` is just to see the demo (when setting `exposeTest` to `true`).
+- `dotenv` is to make environment variable taken from an `.env` file.
+- `express` is the famous express server.
+- `express-session` is needed for making authentication with session cookies.
 
 ## Usage
 
 ### environment variables
+
+Create the `.env` file:
 
 ```
 # Comma separated list of providers (uppercase)
@@ -33,9 +37,9 @@ OAUTH2_AZUREAD_AUTHORIZATION_URL=https://login.microsoftonline.com/common/oauth2
 OAUTH2_AZUREAD_ACCESS_TOKEN_URL=https://login.microsoftonline.com/common/oauth2/v2.0/token
 ```
 
-Tips: use the [dotenv](https://github.com/motdotla/dotenv) node module to easily manage your environment variables.
-
 ### javascript example
+
+Create a `server.js` file:
 
 ```js
 const express = require('express');
@@ -67,6 +71,16 @@ app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
 ```
+
+### Running
+
+```
+node -r dotenv/config server.js
+```
+
+Open your browser to `http://localhost:3000` and try to connect with your providers.
+
+Gooooooooooood luck!!! :grin:
 
 ## Documentation
 
