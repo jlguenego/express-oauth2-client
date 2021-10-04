@@ -1,6 +1,6 @@
 {
   "name": "express-oauth2-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Middleware for OAuth2 connection.",
   "main": "build/src/index.js",
   "scripts": {
@@ -12,7 +12,9 @@
     "fix": "gts fix",
     "prepare": "npm.cmd run compile",
     "pretest": "npm.cmd run compile",
-    "posttest": "npm.cmd run lint"
+    "posttest": "npm.cmd run lint",
+    "prerelease": "npm run compile",
+    "release": "standard-version"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +32,7 @@
     "nodemon": "^2.0.12",
     "nyc": "^15.1.0",
     "source-map-support": "^0.5.20",
+    "standard-version": "^9.3.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.0.3"
   },
