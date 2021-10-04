@@ -8,6 +8,29 @@ npm i express-oauth2-client express express-session
 
 ## Usage
 
+### environment variables
+
+```
+# Comma separated list of providers (uppercase)
+OAUTH2_PROVIDER_LIST=GITHUB,AZUREAD
+
+# example for GITHUB
+OAUTH2_GITHUB_CLIENT_ID=<your client id>
+OAUTH2_GITHUB_CLIENT_SECRET=<your secret id>
+OAUTH2_GITHUB_AUTHORIZATION_URL=https://github.com/login/oauth/authorize
+OAUTH2_GITHUB_ACCESS_TOKEN_URL=https://github.com/login/oauth/access_token
+
+# example for AZUREAD
+OAUTH2_AZUREAD_CLIENT_ID=<your client id>
+OAUTH2_AZUREAD_CLIENT_SECRET=<your secret id>
+OAUTH2_AZUREAD_AUTHORIZATION_URL=https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+OAUTH2_AZUREAD_ACCESS_TOKEN_URL=https://login.microsoftonline.com/common/oauth2/v2.0/token
+```
+
+Tips: use the [dotenv](https://github.com/motdotla/dotenv) node module to easily manage your environment variables.
+
+### javascript example
+
 ```js
 const express = require('express');
 const session = require('express-session');
