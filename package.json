@@ -2,7 +2,7 @@
   "name": "express-oauth2-client",
   "version": "0.0.1",
   "description": "Middleware for OAuth2 connection.",
-  "main": "index.js",
+  "main": "build/src/index.js",
   "scripts": {
     "start": "npx nodemon -r dotenv/config examples/server.ts",
     "test": "nyc mocha",

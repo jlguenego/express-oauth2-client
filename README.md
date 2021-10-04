@@ -6,6 +6,12 @@
 npm i express-oauth2-client express express-session
 ```
 
+To see the demo (`{exposeTest: true}`) please install also ejs:
+
+```
+npm i ejs
+```
+
 ## Usage
 
 ### environment variables
