@@ -1,4 +1,4 @@
-# express-oauth2-client
+# @jlguenego/express-oauth2-client
 
 ## Install
 
@@ -6,7 +6,7 @@
 mdkir test-oauth2
 cd test-oauth2
 npm init -y
-npm i express-oauth2-client express express-session dotenv ejs
+npm i @jlguenego/express-oauth2-client express express-session dotenv ejs
 ```
 
 - `ejs` is just to see the demo (when setting `exposeTest` to `true`).
@@ -44,7 +44,7 @@ Create a `server.js` file:
 ```js
 const express = require('express');
 const session = require('express-session');
-const {oauth2Client} = require('express-oauth2-client');
+const {oauth2Client} = require('@jlguenego/express-oauth2-client');
 
 const app = express();
 
