@@ -157,4 +157,6 @@ This module exports a singleton object `oauth2Client` with following properties:
 
 ## Author
 
+Made with :hearts: by
+
 Jean-Louis GUENEGO <jlguenego@gmail.com>
