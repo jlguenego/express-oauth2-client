@@ -7,9 +7,9 @@ import {
 import {User} from './interfaces/User';
 import {getOrigin} from './misc';
 import {OAuth2Factory} from './OAuth2Factory';
-import {envOptions} from './options';
 import {authRouter} from './router/auth.router';
 import {oAuth2Router} from './router/oauth2.router';
+import {testProviderRouter} from './router/test-provider.router';
 
 export class OAuth2Client {
   constructor(public options: OAuth2Options) {}
@@ -33,8 +33,8 @@ export class OAuth2Client {
   getConfig(req: Request): OAuth2Config {
     const origin = getOrigin(req);
     const config: OAuth2Config = {};
-    for (const p of Object.keys(envOptions)) {
-      const oauth2 = OAuth2Factory.get(p, envOptions);
+    for (const p of Object.keys(this.options)) {
+      const oauth2 = OAuth2Factory.get(p, this.options);
       config[p] = {
         authorizationUrl: oauth2.getAuthorizeUrl(origin),
       };
@@ -50,6 +50,9 @@ export class OAuth2Client {
     const app = Router();
     app.use('/auth', authRouter);
     app.use('/oauth2', oAuth2Router(this, opts));
+    if (this.options['TESTPROVIDER']) {
+      app.use('/test-provider', testProviderRouter());
+    }
     return app;
   }
 }

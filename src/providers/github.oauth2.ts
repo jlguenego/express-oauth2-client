@@ -7,7 +7,7 @@ export class GithubOAuth2 extends OAuth2 {
     const url =
       this.options.accessTokenUrl +
       `?client_id=${this.options.clientID}&code=${requestToken}&client_secret=${this.options.clientSecret}`;
-    const data = (await got.post(url).json()) as {access_token: string};
+    const data: {access_token: string} = await got.post(url).json();
     return data.access_token;
   }
 
