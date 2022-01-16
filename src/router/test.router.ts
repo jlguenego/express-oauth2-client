@@ -20,7 +20,8 @@ export const testRouter = (oauth2Client: OAuth2Client) => {
   app.get('/', (req, res) => {
     const user = oauth2Client.getUser(req);
     const config = oauth2Client.getConfig(req);
-    req.session.afterLoginRoute = '/api/oauth2/test/';
+    req.session.afterLoginRoute =
+      req.protocol + '://' + req.headers.host + '/api/oauth2/test/';
     res.render('pages/index', {
       config,
       isConnected: user !== undefined,
